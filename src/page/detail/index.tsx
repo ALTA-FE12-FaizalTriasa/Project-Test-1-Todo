@@ -1,16 +1,25 @@
 import React, {useEffect, useState, FC} from 'react'
 import axios from 'axios'
 import { useLocation, useNavigate } from 'react-router-dom'
+import {useSelector, useDispatch} from "react-redux"
+import { DarkMode, handleToDark, handleToLigth } from "../../features/darkModeSlice";
+
+import Layout from '../../components/Layout'
+
 
 interface DetailProps{
     item?: any
+    data?:any
+    mode:boolean
 }
 
-const Detail:FC <DetailProps> = ({item}) => {
+const Detail:FC <DetailProps> = ({item, mode}) => {
 
     const navigate = useNavigate()
     const location = useLocation()
     const [data, setData] = useState([])
+    const dispatch = useDispatch()
+    const darkMode = useSelector((state: {darkMode: DarkMode}) => state.darkMode )
     const [loading, setLoading] = useState(false)
 
     const id:string = location?.state?.id
@@ -37,9 +46,9 @@ const Detail:FC <DetailProps> = ({item}) => {
         getTaskTodo()
     },[])
     return (
-        <div className="w-screen">
-
-        <div className="mockup-window mx-auto w-5/6 xl:w-4/6 border bg-base-300">
+        <Layout 
+        mode={darkMode?.value}>
+        <div className="mx-auto mt-56 rounded-xl shadow-xl w-5/6 xl:w-4/6 border bg-base-300">
             { data && loading === true ? (
                 
                         <div className="flex flex-col xl:grid xl:grid-cols-3 justify-start px-4 py-16 bg-base-200">
@@ -71,7 +80,8 @@ const Detail:FC <DetailProps> = ({item}) => {
                 <h1 className="flex justify-center">Please wait ...</h1>
             )}
         </div>
-        </div>
+
+        </Layout>
     )
 }
 

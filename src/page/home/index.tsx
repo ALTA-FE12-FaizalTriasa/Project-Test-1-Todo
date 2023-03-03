@@ -1,5 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
+import {useSelector, useDispatch} from "react-redux"
+import { DarkMode, handleToDark, handleToLigth } from "../../features/darkModeSlice";
+
 
 import Layout from '../../components/Layout'
 import Todo from '../../components/Todo'
@@ -9,7 +12,8 @@ const Home = () => {
     
 //     const [data, setData] = useState([])
 //     const [loading, setLoading] = useState(false)
-   
+    const dispatch = useDispatch()
+    const darkMode = useSelector((state: {darkMode: DarkMode}) => state.darkMode )
     
 
 // async function getTodo(){
@@ -48,10 +52,17 @@ const Home = () => {
 
 
     return (
-        <Layout>
+        <Layout
+        mode={darkMode?.value}
+        >
             <Todo
+            handleOf={()=> dispatch(handleToLigth())}
+            handleOn={()=> dispatch(handleToDark())}
+            mode={darkMode?.value}
             />
-            <TodoList />
+            <TodoList 
+            mode={darkMode?.value}
+            />
         </Layout>
     )
 }
