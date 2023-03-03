@@ -20,7 +20,6 @@ const Home = () => {
         }
         )
         .then((responese) => {
-            setLoading(true)
             (responese.data)
             console.log(responese.data)
         })
@@ -36,10 +35,7 @@ const Home = () => {
 
     return (
         <>
-        {data &&
-            data.map((item) => {
-            return <p key={item.id}>{item.title}</p>;
-            })}
+    
         </>
     );
 };

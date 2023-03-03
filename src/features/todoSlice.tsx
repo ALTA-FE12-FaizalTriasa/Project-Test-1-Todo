@@ -1,7 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export interface Item{
-    item: any
+interface Item {
+    id: string
+    content: string
+    due_date: string
 }
 export interface TodoState{
     item: Item[]
@@ -14,15 +16,15 @@ export const addTodoSlice  = createSlice({
     name: "toDo",
     initialState , 
     reducers:{
-        addTodo: (state, actions: PayloadAction<Item> ) => {
+        addTodo: (state, actions: PayloadAction<Item>) => {
             state.item.push(actions.payload)
             return state
         },
-        setTodo: (state, actions: PayloadAction<Item> ) => {
+        setTodo: (state, actions) => {
             state.item = actions.payload
             return state
         },
-        removeTodo: (state, actions: PayloadAction<Item> ) => {
+        removeTodo: (state, actions: PayloadAction ) => {
             const removeItem = state.item.filter((item:any) => {
                 item.id !== actions.payload
             })
