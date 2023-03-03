@@ -54,32 +54,9 @@ const createTask = async () =>{
 }
 
 useEffect(() => {
-
+    createTask()
 },[])
 
-    // function addTodo(event:any) {
-    //     event.prevenDefault()
-    //     axios.post(
-    //         `  https://api.todoist.com/rest/v2/tasks `,{
-    //             content: data.content, 
-    //             due_string: data.due_date, 
-    //             priority: data.priority,
-    //             due_lang: data.due_lang 
-    //         },
-    //         {
-    //             headers: {
-    //                 Authorization: `Bearer ${import.meta.env.VITE_TODOIST_KEY}`
-    //             }
-    //         }
-    //     )
-    //     .then((reponse) => {
-    //         console.log(reponse.data)
-    //     })
-    //     .catch((error) => {
-    //         console.log(error)
-    //     })
-    // }
-    
     
     console.log(data)
     return (

@@ -1,24 +1,23 @@
 import React, { FC, useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { TodoState } from '../features/todoSlice'
+
 interface TodoListProps{
     id?: string
     content?: string
     status?: boolean,
     handleDetail?: React.MouseEventHandler
     handleDelete?: React.MouseEventHandler
+    handleStatus: React.MouseEventHandler
     mode: boolean
 }
 
-const TodoList:FC<TodoListProps> = ({mode}) => {
+const TodoList:FC<TodoListProps> = ({mode, status, handleStatus}) => {
 
     const navigate = useNavigate()
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(false)
-    const [status, setStatus] = useState((data.status = false))
-    const toDo =  useSelector((state: {toDo: TodoState}) => state.toDo)
+    
 
 
     async function getTodo(){
@@ -32,7 +31,7 @@ const TodoList:FC<TodoListProps> = ({mode}) => {
         )
         .then((responese) => {
             setLoading(true)
-            setData(responese.to)
+            setData(responese.data)
             console.log(responese.data)
         })
         .catch((error) => {
@@ -104,19 +103,21 @@ const TodoList:FC<TodoListProps> = ({mode}) => {
                             </div>
                         </div>
                         </td>
-                        <td className={`w-1/3 ${mode ?  "bg-slate-800" : "bg-base-100" }`}>{ status === true ? (
-                            <div className="text-green-500">
-                                Active
-                            </div>
-                        ) : (
+                        <td className={`w-1/3 ${mode ?  "bg-slate-800" : "bg-base-100" }`}>
+                        { {status} ? (
                             <div className="text-red-500">
                                 Non Active
+                            </div>
+                        ) : (
+                            <div className="text-green-500">
+                                Active
                             </div>
                         )}
                         
                         </td>
                         <th className={`justify-center space-y-2 w-1/4 flex flex-col md:flex-row md:space-y-0 md:space-x-5 md:mx-auto ${mode ?  "bg-slate-800" : "bg-base-100" }`}>
-                        <button className="btn bg-sky-500 btn-md mx-auto text-slate-800">
+                        <button onClick={handleStatus} 
+                        className="btn bg-sky-500 btn-md mx-auto text-slate-800">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
                             <path d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32L19.513 8.2z" />
                         </svg>

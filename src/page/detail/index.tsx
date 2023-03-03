@@ -7,13 +7,9 @@ import { DarkMode, handleToDark, handleToLigth } from "../../features/darkModeSl
 import Layout from '../../components/Layout'
 
 
-interface DetailProps{
-    item?: any
-    data?:any
-    mode:boolean
-}
 
-const Detail:FC <DetailProps> = ({item, mode}) => {
+
+const Detail = () => {
 
     const navigate = useNavigate()
     const location = useLocation()
